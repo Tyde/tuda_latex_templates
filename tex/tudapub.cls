@@ -783,10 +783,11 @@ contents={\color{identbarcolor}\rule{\layerwidth}{\layerheight}}
 	}
 	\cs_new:Nn \TUDa_write_xmp_line:nn {
 		\begingroup
+		\tl_set:Nx \l_TUDa_tmp_tl {\str_uppercase:f {\tl_head:n {#1}}\tl_tail:n {#1}}
 		\cs_set:Npn \sep {\exp_not:N \sep}
-		\cs_if_exist:cTF {\tl_mixed_case:n {#1}} {
+		\cs_if_exist:cTF {\l_TUDa_tmp_tl} {
 			\iow_now:Nx \TUDa@xmpdata_stream {
-				\c_backslash_str \tl_mixed_case:n {#1} {\exp_not:n {#2}}
+				\c_backslash_str \l_TUDa_tmp_tl {\exp_not:n {#2}}
 			}
 		}{
 			\msg_error:nnn {TUDaPub} {unknown-metadata} {#1}
